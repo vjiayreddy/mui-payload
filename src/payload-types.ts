@@ -205,7 +205,13 @@ export interface Category {
 export interface Page {
   id: string;
   name: string;
-  layout: (CallToActionBlock | BestSellingItemsBlock | HeroFeaturedProductsBlock | ProductHeroSliderBlock)[];
+  layout: (
+    | CallToActionBlock
+    | BestSellingItemsBlock
+    | HeroFeaturedProductsBlock
+    | ProductHeroSliderBlock
+    | ServiceGuaranteesBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -331,6 +337,22 @@ export interface ProductHeroSliderBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'productHeroSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGuaranteesBlock".
+ */
+export interface ServiceGuaranteesBlock {
+  services: {
+    iconName: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  isPublished?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceGuarantees';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -596,6 +618,7 @@ export interface PagesSelect<T extends boolean = true> {
         bestSellingItems?: T | BestSellingItemsBlockSelect<T>;
         heroFeaturedProducts?: T | HeroFeaturedProductsBlockSelect<T>;
         productHeroSlider?: T | ProductHeroSliderBlockSelect<T>;
+        serviceGuarantees?: T | ServiceGuaranteesBlockSelect<T>;
       };
   meta?:
     | T
@@ -679,6 +702,23 @@ export interface ProductHeroSliderBlockSelect<T extends boolean = true> {
               to_color?: T;
             };
         image?: T;
+        id?: T;
+      };
+  isPublished?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGuaranteesBlock_select".
+ */
+export interface ServiceGuaranteesBlockSelect<T extends boolean = true> {
+  services?:
+    | T
+    | {
+        iconName?: T;
+        title?: T;
+        description?: T;
         id?: T;
       };
   isPublished?: T;
@@ -812,8 +852,15 @@ export interface Header {
   color?: string | null;
   navLinks?:
     | {
+        linkType?: ('internal' | 'external' | 'categories') | null;
         name: string;
-        link: string;
+        reference?: {
+          relationTo: 'pages';
+          value: string | Page;
+        } | null;
+        url?: string | null;
+        categories?: (string | Category)[] | null;
+        newTab?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -847,8 +894,12 @@ export interface HeaderSelect<T extends boolean = true> {
   navLinks?:
     | T
     | {
+        linkType?: T;
         name?: T;
-        link?: T;
+        reference?: T;
+        url?: T;
+        categories?: T;
+        newTab?: T;
         id?: T;
       };
   updatedAt?: T;

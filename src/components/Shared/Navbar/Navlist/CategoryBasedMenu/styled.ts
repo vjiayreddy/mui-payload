@@ -67,21 +67,16 @@ const CategoryListItem = styled(ListItem, {
 }))
 const SubCategoryList = styled(List)(({ theme }) => ({
   padding: 0,
-  display: 'grid',
-  gridTemplateColumns: 'repeat(6, 1fr)',
-  [theme.breakpoints.down('xl')]: {
-    gridTemplateColumns: 'repeat(5, 1fr)',
-  },
-  [theme.breakpoints.down('lg')]: {
-    gridTemplateColumns: 'repeat(4, 1fr)',
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  //gap: '0.5rem',
 }))
 const SubCategoryListItem = styled(ListItem)(({ theme }) => ({
   gap: 12,
   fontSize: 13,
   padding: '0',
   alignItems: 'center',
-  marginBottom: '1.5rem',
+  marginBottom: '0.5rem',
   transition: 'all 0.3s',
   ':hover': {
     color: theme.palette.primary.main,

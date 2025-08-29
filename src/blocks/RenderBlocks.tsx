@@ -4,13 +4,15 @@ import type { Page } from '@/payload-types'
 import { CallToActionBlock } from './call-to-action/CallToActionBlock'
 import { BestSellingItemsBlock } from './best-selling-items/BestSellingItemsBlock'
 import { HeroFeaturedProductsBlock } from './hero-featured-products/HeroFeaturedProductsBlock'
-import ProductHeroSliderBlock from './product-hero-slider/ProductHeroSliderBlock'
+import ProductHeroSliderBlock from './ProductHeroSlider/ProductHeroSliderBlock'
+import ServiceGuaranteesBlock from './ServiceGuarantees/ServerServiceGuaranteesBlock'
 
 const blockComponents = {
   cta: CallToActionBlock,
   bestSellingItems: BestSellingItemsBlock,
   heroFeaturedProducts: HeroFeaturedProductsBlock,
   productHeroSlider: ProductHeroSliderBlock,
+  serviceGuarantees: ServiceGuaranteesBlock,
 }
 
 export const RenderBlocks: React.FC<{

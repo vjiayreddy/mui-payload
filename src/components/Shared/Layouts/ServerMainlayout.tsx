@@ -13,6 +13,7 @@ interface ServerMainlayoutProps {
 
 const ServerMainlayout: React.FC<ServerMainlayoutProps> = async ({ children }) => {
   const headerData: HeaderType = await getCachedGlobal('header', 4)()
+
   return (
     <>
       {headerData.topInfoBar?.isVisible && (

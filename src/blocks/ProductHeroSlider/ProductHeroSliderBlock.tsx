@@ -1,6 +1,6 @@
 import React from 'react'
 import { ProductHeroSliderBlock as ProductHeroSliderBlockProps } from '@/payload-types'
-import ProductHeroSlider from '@/components/Shared/ProductHeroSlider'
+import ProductHeroSlider from '@/components/Shared/Sliders/ProductHeroSlider'
 
 const ProductHeroSliderBlock: React.FC<ProductHeroSliderBlockProps> = (props) => {
   return <ProductHeroSlider {...props} />

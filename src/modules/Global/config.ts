@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload'
 import { revalidateHeader } from './revalidate'
 import { ColorInput } from '@/fields/ColorPicker/color'
+import { link } from '@/fields/Link'
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -88,16 +89,69 @@ export const Header: GlobalConfig = {
       maxRows: 6,
       fields: [
         {
-          type: 'text',
+          name: 'linkType',
+          type: 'select',
+          options: [
+            {
+              label: 'Internal Link',
+              value: 'internal',
+            },
+            {
+              label: 'External Link',
+              value: 'external',
+            },
+            {
+              label: 'Categories',
+              value: 'categories',
+            },
+          ],
+          defaultValue: 'internal',
+        },
+        {
           name: 'name',
+          type: 'text',
           label: 'Name',
           required: true,
         },
         {
-          type: 'text',
-          name: 'link',
-          label: 'Link',
+          name: 'reference',
+          type: 'relationship',
+          admin: {
+            condition: (_, siblingData) => siblingData?.linkType === 'internal',
+          },
+          label: 'Document to link to',
+          relationTo: ['pages'],
           required: true,
+        },
+        {
+          name: 'url',
+          type: 'text',
+          admin: {
+            condition: (_, siblingData) => siblingData?.linkType === 'external',
+          },
+          label: 'Custom URL',
+          required: true,
+        },
+        {
+          name: 'categories',
+          type: 'relationship',
+          admin: {
+            condition: (_, siblingData) => siblingData?.linkType === 'categories',
+          },
+          label: 'Categories',
+          relationTo: 'categories',
+          required: true,
+          hasMany: true,
+          filterOptions: {
+            level: {
+              equals: '1',
+            },
+          },
+        },
+        {
+          name: 'newTab',
+          type: 'checkbox',
+          label: 'Open in new tab',
         },
       ],
     },

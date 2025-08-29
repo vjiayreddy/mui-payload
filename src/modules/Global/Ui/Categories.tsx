@@ -8,15 +8,11 @@ import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Grow from '@mui/material/Grow'
-import MenuItem from '@mui/material/MenuItem'
-import MenuList from '@mui/material/MenuList'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import ListSubheader from '@mui/material/ListSubheader'
 import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
 const Categories = () => {
@@ -38,8 +34,6 @@ const Categories = () => {
       setCatId(null)
     }
   }
-
-  console.log('Categories', data)
 
   return (
     <Grid size="grow" container alignItems="center" spacing={2} justifyContent="center">

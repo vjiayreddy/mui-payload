@@ -26,7 +26,8 @@ const NavLink: React.FC<{
   children: React.ReactNode
   style?: React.CSSProperties
   className?: string
-}> = ({ href, children, style, className, ...props }) => {
+  onClick?: () => void
+}> = ({ href, children, style, className, onClick, ...props }) => {
   const pathname = usePathname()
 
   // CHECK CURRENT ROUTE
@@ -40,6 +41,7 @@ const NavLink: React.FC<{
       style={style}
       className={clsx(className)}
       active={isActive() ? true : false}
+      onClick={onClick}
       {...props}
     >
       {children}

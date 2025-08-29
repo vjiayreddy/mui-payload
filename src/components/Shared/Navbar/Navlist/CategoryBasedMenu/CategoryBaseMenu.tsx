@@ -19,11 +19,18 @@ import {
 } from './styled'
 import { ChevronRight } from '@mui/icons-material'
 import OverlayScrollbar from '@/components/Shared/OverlayScrollbar/scrollbar'
+import { Category } from '@/payload-types'
+import { Grid } from '@mui/material'
 
-const CategoryBasedMenu = ({ title, menuList }: any) => {
-  const [selected, setSelected] = useState(menuList[0].title)
-  const list = menuList.reduce((prev: any, curr: any) => [...prev, curr.title], [])
-  const childList = menuList.find((item: any) => item.title === selected)
+interface CategoryBasedMenuProps {
+  title: string
+  menuList: Category[]
+}
+
+const CategoryBasedMenu = ({ title, menuList }: CategoryBasedMenuProps) => {
+  const [selected, setSelected] = useState(menuList[0].name)
+  const list = menuList.reduce((prev: any, curr: any) => [...prev, curr.name], [])
+  const childList = menuList.find((item: any) => item.name === selected)
   return (
     <Wrapper>
       <div className="menu-title">
@@ -62,56 +69,41 @@ const SubChildList = ({ subChildren }: any) => {
       }}
     >
       <Box px={6} py={2} height="100%">
-        {subChildren.child.map((item: any, key: any) => (
-          <div key={key}>
-            {/* NAV / CATEGORY TITLE */}
-            <Typography
-              variant="h6"
-              sx={{
-                my: 3,
-              }}
-            >
-              {item.title}
-            </Typography>
-
-            {/* NAV LIST ITEM / CATEGORY LIST ITEM */}
-            <SubCategoryList>
-              {item.child.map((sub: any, key: any) => (
-                <SubChildItem item={sub} key={key} />
-              ))}
-            </SubCategoryList>
-          </div>
-        ))}
+        <Grid container>
+          {subChildren.subcategories.map((item: any) => (
+            <Grid key={item.id} size={{ md: 3, xs: 6, sm: 4, lg: 3, xl: 3 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  my: 3,
+                }}
+              >
+                {item?.subcategory?.name}
+              </Typography>
+              <SubCategoryList>
+                {item?.subcategory?.subcategories?.map((sub: any) => (
+                  <SubChildItem item={sub} key={sub.id} />
+                ))}
+              </SubCategoryList>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </OverlayScrollbar>
   )
 }
 
-// ==============================================================
-
-// ==============================================================
-
 const SubChildItem = ({ item }: any) => {
-  const { title, url = '/', icon, img } = item
-  //const Icon = icon ? Icons[icon] : null
-  //const Icon = null
+  const { subcategory, url = '/', icon, img } = item
   return (
     <Link href={url}>
       <SubCategoryListItem>
         {img ? (
           <Avatar className="sub-item-avatar">
-            <Image alt={title} src={img} fill sizes="(max-width: 768px) 100vw, 100vw" />
+            <Image alt={subcategory.name} src={img} fill sizes="(max-width: 768px) 100vw, 100vw" />
           </Avatar>
         ) : null}
-
-        {/* {Icon ? (
-          <Icon
-            sx={{
-              fontSize: 16,
-            }}
-          />
-        ) : null} */}
-        {title}
+        {subcategory?.name}
       </SubCategoryListItem>
     </Link>
   )

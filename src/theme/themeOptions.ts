@@ -191,7 +191,7 @@ export default function themeOptions(pathname: string) {
   if (['/mini-cart', '/login'].includes(pathname)) {
     selectedMapping = oldMapping
   }
-  const themeOption = themesOptionList[selectedMapping?.theme || THEMES.DARK]
+  const themeOption = themesOptionList[selectedMapping?.theme || THEMES.GOLD]
 
   // STORE THE SELECTED MAPPING IN OLD MAPPING FOR MODAL ROUTES -> LOGIN, MINI-CART
   oldMapping = selectedMapping

@@ -6,6 +6,7 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import useOverflowDetect from '@/hooks/useOverflowDetect'
 import { MenuListItem, MenusContainer, Wrapper } from './styled'
 import NavLink from '@/components/Shared/Navlink/NavLink-1'
+import { Category } from '@/payload-types'
 
 const gridSize = (length: any) => {
   if (length === 1) return 12
@@ -13,9 +14,9 @@ const gridSize = (length: any) => {
   if (length === 3) return 4
   return 3
 }
-const MegaMenu = ({ title, menuList }: any) => {
+const MegaMenu = ({ title, menuList }: { menuList: Category[]; title: string }) => {
   // get grid size the basis of menu list
-  const grid = gridSize(menuList.length)
+  const grid = gridSize(menuList?.length || 0)
   const { elementRef, isLeftOverflowing, isRightOverflowing, checkOverflow } =
     useOverflowDetect<HTMLLIElement>()
   return (
@@ -33,7 +34,7 @@ const MegaMenu = ({ title, menuList }: any) => {
       >
         <Card className="card" elevation={5}>
           <Grid container>
-            {menuList.slice(0, 4).map((category: any, key: any) => (
+            {menuList.map((category: any, key: any) => (
               <Grid
                 size={{
                   md: grid,
@@ -41,9 +42,9 @@ const MegaMenu = ({ title, menuList }: any) => {
                 key={key}
                 className="grid-item"
               >
-                {category.map((item: any, i: any) => (
+                {/* {category.map((item: any, i: any) => (
                   <CategoryList category={item} key={item.title + i} />
-                ))}
+                ))} */}
               </Grid>
             ))}
           </Grid>

@@ -1,49 +1,46 @@
 'use client'
-
-import Card from '@mui/material/Card'
-import MenuItem from '@mui/material/MenuItem'
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import { NAV_LINK_STYLES, ChildNavListWrapper } from '../styled'
-import NavItemChild from './NavItem'
-import NavLink from '../../Navlink/NavLink-1'
-import MegaMenu from './MegaMenu'
 import CategoryBasedMenu from './CategoryBasedMenu/CategoryBaseMenu'
 import { FlexBox } from '../../FlexBox'
+import { Category, Page } from '@/payload-types'
 
-const NavigationList = ({ navigation }: any) => {
-  const renderNestLevel = (children: any) => {
-    return children.map((nav: any) => {
-      if (nav.child) {
+// Extended navigation link type that includes properties used in the component
+export interface NavigationLink {
+  // Properties from Header['navLinks'] type
+  linkType?: 'internal' | 'external' | 'categories' | null
+  name: string
+  url?: string | null
+  categories?: (string | Category)[] | null
+  newTab?: boolean | null
+  id?: string | null
+  reference?: {
+    relationTo: 'pages'
+    value: string | Page
+  } | null
+}
+
+interface NavigationListProps {
+  navLinks: NavigationLink[]
+}
+
+const NavigationList = ({ navLinks }: NavigationListProps) => {
+  const renderRootLevel = (list: NavigationLink[]) => {
+    return list.map((nav: NavigationLink) => {
+      // SHOW GRID MEGA MENU
+      if (nav.linkType === 'categories') {
         return (
-          <NavItemChild nav={nav} key={nav.title}>
-            {renderNestLevel(nav.child)}
-          </NavItemChild>
+          <CategoryBasedMenu
+            key={nav.id}
+            title={nav.name}
+            menuList={nav.categories as Category[]}
+          />
         )
       }
-      return (
-        <NavLink href={nav.url} key={nav.title}>
-          <MenuItem>{nav.title}</MenuItem>
-        </NavLink>
-      )
-    })
-  }
-  const renderRootLevel = (list: any) => {
-    return list.map((nav: any) => {
-      // SHOW GRID MEGA MENU
-      if (nav.megaMenu) {
-        return <MegaMenu key={nav.title} title={nav.title} menuList={nav.child} />
-      }
 
-      // SHOW CATEGORY BASED MEGA MENU WITH SUB ITEMS
-      if (nav.megaMenuWithSub) {
-        return <CategoryBasedMenu key={nav.title} title={nav.title} menuList={nav.child} />
-      }
-
-      // SHOW LIST MENU WITH CHILD
-      if (nav.child && nav.megaMenu === false && nav.megaMenuWithSub === false) {
+      if (nav.linkType === 'internal') {
         return (
           <FlexBox
-            key={nav.title}
+            key={nav.id}
             alignItems="center"
             position="relative"
             flexDirection="column"
@@ -56,33 +53,13 @@ const NavigationList = ({ navigation }: any) => {
             }}
           >
             <FlexBox alignItems="flex-end" gap={0.3} sx={NAV_LINK_STYLES}>
-              {nav.title}{' '}
-              <KeyboardArrowDown
-                sx={{
-                  color: 'grey.500',
-                  fontSize: '1.1rem',
-                }}
-              />
+              {nav.name}
             </FlexBox>
-
-            <ChildNavListWrapper className="child-nav-item">
-              <Card
-                elevation={5}
-                sx={{
-                  mt: 2.5,
-                  py: 1,
-                  minWidth: 100,
-                  overflow: 'unset',
-                }}
-              >
-                {renderNestLevel(nav.child)}
-              </Card>
-            </ChildNavListWrapper>
           </FlexBox>
         )
       }
     })
   }
-  return <FlexBox gap={4}>{renderRootLevel(navigation)}</FlexBox>
+  return <FlexBox gap={4}>{navLinks && renderRootLevel(navLinks)}</FlexBox>
 }
 export default NavigationList
