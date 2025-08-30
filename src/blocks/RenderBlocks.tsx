@@ -6,6 +6,8 @@ import { BestSellingItemsBlock } from './best-selling-items/BestSellingItemsBloc
 import { HeroFeaturedProductsBlock } from './hero-featured-products/HeroFeaturedProductsBlock'
 import ProductHeroSliderBlock from './ProductHeroSlider/ProductHeroSliderBlock'
 import ServiceGuaranteesBlock from './ServiceGuarantees/ServerServiceGuaranteesBlock'
+import ProductCategorySelectorBlock from './ProductCategorySelector/ServerProductCategorySelectorBlock'
+import AnimatedAdsBannerAreaBlock from './AnimatedAdsBannerArea/AnimatedAdsBannerAreaBlock'
 
 const blockComponents = {
   cta: CallToActionBlock,
@@ -13,6 +15,8 @@ const blockComponents = {
   heroFeaturedProducts: HeroFeaturedProductsBlock,
   productHeroSlider: ProductHeroSliderBlock,
   serviceGuarantees: ServiceGuaranteesBlock,
+  productCategorySelector: ProductCategorySelectorBlock,
+  animatedAdsBannerArea: AnimatedAdsBannerAreaBlock,
 }
 
 export const RenderBlocks: React.FC<{
