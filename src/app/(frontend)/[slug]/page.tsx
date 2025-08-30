@@ -6,7 +6,6 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { PayloadRedirects } from '@/components/Shared/PayloadRedirect/PayloadRedirects'
 import { caller } from '@/trpc/server'
 import { generateMeta } from '@/lib/utils/generateMeta'
-import ProductHeroSlider from '@/components/Shared/Sliders/ProductHeroSlider'
 
 export async function generateStaticParams() {
   const pages = await caller.pages.getPages({
@@ -60,8 +59,9 @@ export default async function Page({ params: paramsPromise }: Args) {
       {/* <PageClient /> */}
       {/* Allows redirects for valid pages too */}
       {/* <HomeHeroSection/> */}
-      <ProductHeroSlider />
+
       <PayloadRedirects disableNotFound url={url} />
+
       {/* {draft && <LivePreviewListener />} */}
       {/* <RenderHero {...hero} /> */}
 

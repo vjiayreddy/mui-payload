@@ -211,6 +211,8 @@ export interface Page {
     | HeroFeaturedProductsBlock
     | ProductHeroSliderBlock
     | ServiceGuaranteesBlock
+    | ProductCategorySelectorBlock
+    | AnimatedAdsBannerAreaBlock
   )[];
   meta?: {
     title?: string | null;
@@ -353,6 +355,39 @@ export interface ServiceGuaranteesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'serviceGuarantees';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductCategorySelectorBlock".
+ */
+export interface ProductCategorySelectorBlock {
+  categories?: (string | Category)[] | null;
+  isPublished?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'productCategorySelector';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnimatedAdsBannerAreaBlock".
+ */
+export interface AnimatedAdsBannerAreaBlock {
+  Content: {
+    heading: string;
+    titleNormal: string;
+    titleBold: string;
+  };
+  Customization?: {
+    headingColor?: string | null;
+    titleNormalColor?: string | null;
+    titleBoldColor?: string | null;
+    animatedSectionBgColor?: string | null;
+    sectionBgColor?: string | null;
+  };
+  isPublished?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'animatedAdsBannerArea';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -619,6 +654,8 @@ export interface PagesSelect<T extends boolean = true> {
         heroFeaturedProducts?: T | HeroFeaturedProductsBlockSelect<T>;
         productHeroSlider?: T | ProductHeroSliderBlockSelect<T>;
         serviceGuarantees?: T | ServiceGuaranteesBlockSelect<T>;
+        productCategorySelector?: T | ProductCategorySelectorBlockSelect<T>;
+        animatedAdsBannerArea?: T | AnimatedAdsBannerAreaBlockSelect<T>;
       };
   meta?:
     | T
@@ -720,6 +757,41 @@ export interface ServiceGuaranteesBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
+      };
+  isPublished?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductCategorySelectorBlock_select".
+ */
+export interface ProductCategorySelectorBlockSelect<T extends boolean = true> {
+  categories?: T;
+  isPublished?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnimatedAdsBannerAreaBlock_select".
+ */
+export interface AnimatedAdsBannerAreaBlockSelect<T extends boolean = true> {
+  Content?:
+    | T
+    | {
+        heading?: T;
+        titleNormal?: T;
+        titleBold?: T;
+      };
+  Customization?:
+    | T
+    | {
+        headingColor?: T;
+        titleNormalColor?: T;
+        titleBoldColor?: T;
+        animatedSectionBgColor?: T;
+        sectionBgColor?: T;
       };
   isPublished?: T;
   id?: T;
