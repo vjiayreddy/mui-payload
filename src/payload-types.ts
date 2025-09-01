@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     categories: Category;
     pages: Page;
+    filters: Filter;
     products: Product;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
@@ -84,6 +85,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    filters: FiltersSelect<false> | FiltersSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -189,12 +191,39 @@ export interface Category {
   image?: (string | null) | Media;
   isPublished?: boolean | null;
   level: '1' | '2' | '3';
+  parent?: (string | null) | Category;
   subcategories?:
     | {
         subcategory?: (string | null) | Category;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Select which filters should be available for this category
+   */
+  availableFilters?: (string | Filter)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filters".
+ */
+export interface Filter {
+  id: string;
+  name: string;
+  slug: string;
+  slugLock?: boolean | null;
+  type?: ('multi_select' | 'single_select' | 'rangle-select') | null;
+  options?:
+    | {
+        label: string;
+        value: string;
+        isActive?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  isActive?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -213,6 +242,7 @@ export interface Page {
     | ServiceGuaranteesBlock
     | ProductCategorySelectorBlock
     | AnimatedAdsBannerAreaBlock
+    | FlashDealsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -283,6 +313,9 @@ export interface Product {
   price: number;
   stock: number;
   categories: (string | Category)[];
+  brand: string;
+  filterType?: ('RAM' | 'Storage') | null;
+  filterOptions?: string[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -388,6 +421,19 @@ export interface AnimatedAdsBannerAreaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'animatedAdsBannerArea';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FlashDealsBlock".
+ */
+export interface FlashDealsBlock {
+  sectionHeading?: string | null;
+  iconName?: string | null;
+  products?: (string | Product)[] | null;
+  isPublished?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'flashDeals';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -526,6 +572,10 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
+        relationTo: 'filters';
+        value: string | Filter;
+      } | null)
+    | ({
         relationTo: 'products';
         value: string | Product;
       } | null)
@@ -631,12 +681,14 @@ export interface CategoriesSelect<T extends boolean = true> {
   image?: T;
   isPublished?: T;
   level?: T;
+  parent?: T;
   subcategories?:
     | T
     | {
         subcategory?: T;
         id?: T;
       };
+  availableFilters?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -656,6 +708,7 @@ export interface PagesSelect<T extends boolean = true> {
         serviceGuarantees?: T | ServiceGuaranteesBlockSelect<T>;
         productCategorySelector?: T | ProductCategorySelectorBlockSelect<T>;
         animatedAdsBannerArea?: T | AnimatedAdsBannerAreaBlockSelect<T>;
+        flashDeals?: T | FlashDealsBlockSelect<T>;
       };
   meta?:
     | T
@@ -799,6 +852,39 @@ export interface AnimatedAdsBannerAreaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FlashDealsBlock_select".
+ */
+export interface FlashDealsBlockSelect<T extends boolean = true> {
+  sectionHeading?: T;
+  iconName?: T;
+  products?: T;
+  isPublished?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filters_select".
+ */
+export interface FiltersSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  slugLock?: T;
+  type?: T;
+  options?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        isActive?: T;
+        id?: T;
+      };
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
@@ -811,6 +897,9 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   stock?: T;
   categories?: T;
+  brand?: T;
+  filterType?: T;
+  filterOptions?: T;
   updatedAt?: T;
   createdAt?: T;
 }

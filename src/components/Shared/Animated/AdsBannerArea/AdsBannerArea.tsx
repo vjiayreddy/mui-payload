@@ -1,12 +1,11 @@
 'use client'
-import { Button, Grid } from '@mui/material'
+import { Button, Container, Grid } from '@mui/material'
 import { AdTitle1, AdWrapper } from './styled'
 import { AnimatedAdsBannerAreaBlock } from '@/payload-types'
 
 const AdsBannerArea: React.FC<AnimatedAdsBannerAreaBlock> = (props) => {
-  console.log(props.Customization?.animatedSectionBgColor)
   return (
-    <Grid size={12}>
+    <Container maxWidth="xl" className="pt-10">
       <AdWrapper
         backgroundColor={props.Customization?.animatedSectionBgColor as string}
         slideTextColor={props.Customization?.titleNormalColor as string}
@@ -32,7 +31,7 @@ const AdsBannerArea: React.FC<AnimatedAdsBannerAreaBlock> = (props) => {
           </Button>
         </div>
       </AdWrapper>
-    </Grid>
+    </Container>
   )
 }
 

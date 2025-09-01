@@ -1,6 +1,6 @@
+import { FilterOptionSelector } from '@/fields/FilterOptionsSelector'
 import { slugField } from '@/fields/Slug'
 import { CollectionConfig } from 'payload'
-
 export const Products: CollectionConfig = {
   slug: 'products',
   admin: {
@@ -55,5 +55,28 @@ export const Products: CollectionConfig = {
       required: true,
       hasMany: true,
     },
+    {
+      name: 'brand',
+      type: 'text',
+      required: true,
+      index: true,
+    },
+    {
+      name: 'filterType',
+      type: 'select',
+      options: [
+        { label: 'RAM', value: 'RAM' },
+        { label: 'Storage', value: 'Storage' },
+      ],
+    },
+    FilterOptionSelector('filters', '', {
+      fieldOverride: {
+        name: 'filterOptions',
+        label: 'Filter Options',
+        admin: {
+          condition: (_, { filterType }) => !!filterType,
+        },
+      },
+    }),
   ],
 }

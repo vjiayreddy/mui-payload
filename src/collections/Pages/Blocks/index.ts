@@ -6,6 +6,7 @@ import { ProductCategorySelector } from '@/blocks/ProductCategorySelector/config
 import { ProductHeroSlider } from '@/blocks/ProductHeroSlider/config'
 import { ServiceGuarantees } from '@/blocks/ServiceGuarantees/config'
 import { AnimatedAdsBannerArea } from '@/blocks/AnimatedAdsBannerArea/config'
+import { flashDealsConfig } from '@/blocks/FlashDeals/config'
 
 export const pagesBlocks: Block[] = [
   CallToAction,
@@ -15,4 +16,5 @@ export const pagesBlocks: Block[] = [
   ServiceGuarantees,
   ProductCategorySelector,
   AnimatedAdsBannerArea,
+  flashDealsConfig,
 ]
