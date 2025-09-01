@@ -8,6 +8,7 @@ import ProductHeroSliderBlock from './ProductHeroSlider/ProductHeroSliderBlock'
 import ServiceGuaranteesBlock from './ServiceGuarantees/ServerServiceGuaranteesBlock'
 import ProductCategorySelectorBlock from './ProductCategorySelector/ServerProductCategorySelectorBlock'
 import AnimatedAdsBannerAreaBlock from './AnimatedAdsBannerArea/AnimatedAdsBannerAreaBlock'
+import FlashDealsBlock from './FlashDeals/ServerFlashDeals'
 
 const blockComponents = {
   cta: CallToActionBlock,
@@ -17,6 +18,7 @@ const blockComponents = {
   serviceGuarantees: ServiceGuaranteesBlock,
   productCategorySelector: ProductCategorySelectorBlock,
   animatedAdsBannerArea: AnimatedAdsBannerAreaBlock,
+  flashDeals: FlashDealsBlock,
 }
 
 export const RenderBlocks: React.FC<{

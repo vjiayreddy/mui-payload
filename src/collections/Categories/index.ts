@@ -45,6 +45,21 @@ export const Categories: CollectionConfig = {
       ],
       required: true,
     },
+
+    {
+      name: 'parent',
+      type: 'relationship',
+      relationTo: 'categories',
+      filterOptions: ({ data }) => {
+        if (data?.level === '2') return { level: { equals: '1' } }
+        if (data?.level === '3') return { level: { equals: '2' } }
+        return {
+          level: {
+            exists: false,
+          },
+        }
+      },
+    },
     {
       name: 'subcategories',
       type: 'array',
@@ -55,6 +70,15 @@ export const Categories: CollectionConfig = {
           relationTo: 'categories',
         },
       ],
+    },
+    {
+      name: 'availableFilters',
+      type: 'relationship',
+      relationTo: 'filters',
+      hasMany: true,
+      admin: {
+        description: 'Select which filters should be available for this category',
+      },
     },
   ],
 }

@@ -36,3 +36,16 @@ export const serviceList = [
     description: 'Secure system',
   },
 ]
+
+export function currency(price: number, fraction = 2) {
+  return Intl.NumberFormat('en-IN', {
+    currency: 'INR',
+    style: 'currency',
+    maximumFractionDigits: fraction,
+  }).format(price)
+}
+
+export function calculateDiscount(price: number, discount: number) {
+  const afterDiscount = Number((price - price * (discount / 100)).toFixed(2))
+  return currency(afterDiscount)
+}
