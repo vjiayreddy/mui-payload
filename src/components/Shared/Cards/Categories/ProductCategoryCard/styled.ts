@@ -36,7 +36,7 @@ export const CategoryTitleWrapper = styled('div')(({ theme }) => ({
   },
 }))
 
-export const CategoryTitle = styled('div')(({ theme }) => ({
+export const CategoryTitle = styled('div')(() => ({
   marginTop: 10,
   textAlign: 'center',
   borderRadius: '2px',

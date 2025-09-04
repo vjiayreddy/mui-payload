@@ -71,7 +71,8 @@ export interface Config {
     media: Media;
     categories: Category;
     pages: Page;
-    filters: Filter;
+    'filter-categories': FilterCategory;
+    'filter-attributes': FilterAttribute;
     products: Product;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
@@ -85,7 +86,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    filters: FiltersSelect<false> | FiltersSelect<true>;
+    'filter-categories': FilterCategoriesSelect<false> | FilterCategoriesSelect<true>;
+    'filter-attributes': FilterAttributesSelect<false> | FilterAttributesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -198,32 +200,43 @@ export interface Category {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Select which filters should be available for this category
-   */
-  availableFilters?: (string | Filter)[] | null;
+  categoryFilters?:
+    | {
+        filterName: string | FilterCategory;
+        /**
+         * Warning: Clear existing selections before changing filter category to avoid validation errors
+         */
+        filterAttributes?: (string | FilterAttribute)[] | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "filters".
+ * via the `definition` "filter-categories".
  */
-export interface Filter {
+export interface FilterCategory {
   id: string;
   name: string;
   slug: string;
   slugLock?: boolean | null;
-  type?: ('multi_select' | 'single_select' | 'rangle-select') | null;
-  options?:
-    | {
-        label: string;
-        value: string;
-        isActive?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filter-attributes".
+ */
+export interface FilterAttribute {
+  id: string;
+  filterCategory: string | FilterCategory;
+  label: string;
+  value: string;
+  displayLabel?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -313,9 +326,13 @@ export interface Product {
   price: number;
   stock: number;
   categories: (string | Category)[];
-  brand: string;
-  filterType?: ('RAM' | 'Storage') | null;
-  filterOptions?: string[] | null;
+  variants?:
+    | {
+        attribute: string | FilterCategory;
+        options: (string | FilterAttribute)[];
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -572,8 +589,12 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'filters';
-        value: string | Filter;
+        relationTo: 'filter-categories';
+        value: string | FilterCategory;
+      } | null)
+    | ({
+        relationTo: 'filter-attributes';
+        value: string | FilterAttribute;
       } | null)
     | ({
         relationTo: 'products';
@@ -688,7 +709,13 @@ export interface CategoriesSelect<T extends boolean = true> {
         subcategory?: T;
         id?: T;
       };
-  availableFilters?: T;
+  categoryFilters?:
+    | T
+    | {
+        filterName?: T;
+        filterAttributes?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -864,22 +891,26 @@ export interface FlashDealsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "filters_select".
+ * via the `definition` "filter-categories_select".
  */
-export interface FiltersSelect<T extends boolean = true> {
+export interface FilterCategoriesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   slugLock?: T;
-  type?: T;
-  options?:
-    | T
-    | {
-        label?: T;
-        value?: T;
-        isActive?: T;
-        id?: T;
-      };
-  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filter-attributes_select".
+ */
+export interface FilterAttributesSelect<T extends boolean = true> {
+  filterCategory?: T;
+  label?: T;
+  value?: T;
+  displayLabel?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -897,9 +928,13 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   stock?: T;
   categories?: T;
-  brand?: T;
-  filterType?: T;
-  filterOptions?: T;
+  variants?:
+    | T
+    | {
+        attribute?: T;
+        options?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

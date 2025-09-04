@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from 'react'
 import Header, {
-  HeaderCategoryDropdown,
   HeaderLogo,
   HeaderMid,
   HeaderRight,
@@ -15,7 +14,6 @@ import HeaderLogin from '../Header/HeaderLogin'
 import HeaderCart from '../Header/HeaderCart'
 import { NavigationLink } from '../Navbar/Navlist/Navlist'
 import { HeaderSearch, MobileHeader } from '../Header/MobileHeader'
-import { mobileNavigation } from '@/lib/utils/constants'
 import MobileMenu from '../Navbar/MobileMenu/MobileMenu'
 
 interface StickyHeaderProps {
@@ -23,7 +21,7 @@ interface StickyHeaderProps {
 }
 
 const StickyHeader: React.FC<StickyHeaderProps> = ({ headerData }) => {
-  const [isFixed, setIsFixed] = useState(false)
+  const [_isFixed, setIsFixed] = useState(false)
   const toggleIsFixed = useCallback((fixed: boolean) => setIsFixed(fixed), [])
   const MOBILE_VERSION_HEADER = (
     <MobileHeader>

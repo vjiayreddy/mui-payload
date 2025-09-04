@@ -1,5 +1,5 @@
 'use client'
-import { NAV_LINK_STYLES, ChildNavListWrapper } from '../styled'
+import { NAV_LINK_STYLES } from '../styled'
 import CategoryBasedMenu from './CategoryBasedMenu/CategoryBaseMenu'
 import { FlexBox } from '../../FlexBox'
 import { Category, Page } from '@/payload-types'

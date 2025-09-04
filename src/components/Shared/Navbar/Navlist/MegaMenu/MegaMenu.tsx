@@ -17,7 +17,7 @@ const gridSize = (length: any) => {
 const MegaMenu = ({ title, menuList }: { menuList: Category[]; title: string }) => {
   // get grid size the basis of menu list
   const grid = gridSize(menuList?.length || 0)
-  const { elementRef, isLeftOverflowing, isRightOverflowing, checkOverflow } =
+  const { elementRef, isLeftOverflowing: _isLeftOverflowing, isRightOverflowing: _isRightOverflowing, checkOverflow } =
     useOverflowDetect<HTMLLIElement>()
   return (
     <Wrapper onMouseOver={checkOverflow}>
@@ -29,8 +29,8 @@ const MegaMenu = ({ title, menuList }: { menuList: Category[]; title: string }) 
       <MenusContainer
         ref={elementRef}
         className="menu-list"
-        left={isLeftOverflowing}
-        right={isRightOverflowing}
+        left={_isLeftOverflowing}
+        right={_isRightOverflowing}
       >
         <Card className="card" elevation={5}>
           <Grid container>
@@ -53,7 +53,7 @@ const MegaMenu = ({ title, menuList }: { menuList: Category[]; title: string }) 
     </Wrapper>
   )
 }
-const CategoryList = ({ category: { title, child } }: any) => {
+const _CategoryList = ({ category: { title, child } }: any) => {
   return (
     <List>
       <Typography

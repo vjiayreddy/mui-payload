@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { StyledRoot } from '../styled'
 import LazyImage from '@/components/Shared/LazyImage'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { ProductHeroSliderBlock } from '@/payload-types'
 
 type slideProp = NonNullable<ProductHeroSliderBlock['slides']>[number]

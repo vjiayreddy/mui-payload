@@ -1,4 +1,3 @@
-import { FilterOptionSelector } from '@/fields/FilterOptionsSelector'
 import { slugField } from '@/fields/Slug'
 import { CollectionConfig } from 'payload'
 export const Products: CollectionConfig = {
@@ -56,27 +55,45 @@ export const Products: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'brand',
-      type: 'text',
-      required: true,
-      index: true,
-    },
-    {
-      name: 'filterType',
-      type: 'select',
-      options: [
-        { label: 'RAM', value: 'RAM' },
-        { label: 'Storage', value: 'Storage' },
+      type: 'group',
+      fields: [
+        {
+          name: 'variants',
+          type: 'array',
+          labels: {
+            singular: 'Variant',
+            plural: 'Variants',
+          },
+          fields: [
+            {
+              name: 'attribute',
+              type: 'relationship',
+              relationTo: 'filter-categories',
+              required: true,
+              unique: true,
+              index: true,
+            },
+            {
+              name: 'options',
+              type: 'relationship',
+              relationTo: 'filter-attributes',
+              required: true,
+              hasMany: true,
+              unique: true,
+              index: true,
+              filterOptions: ({ siblingData }) => {
+                const typedSiblingData = siblingData as { attribute?: string }
+                if (typedSiblingData?.attribute) {
+                  return {
+                    filterCategory: { equals: typedSiblingData.attribute },
+                  }
+                }
+                return false
+              },
+            },
+          ],
+        },
       ],
     },
-    FilterOptionSelector('filters', '', {
-      fieldOverride: {
-        name: 'filterOptions',
-        label: 'Filter Options',
-        admin: {
-          condition: (_, { filterType }) => !!filterType,
-        },
-      },
-    }),
   ],
 }

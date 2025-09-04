@@ -1,8 +1,7 @@
 import React, { Suspense } from "react";
-import { getQueryClient, trpc } from "@/src/trpc/server";
+import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import CategoriesClient from "./CategoriesClient";
-import { NavigationSkeleton } from "@/src/components/shared/navigation/Navigation";
 
 const ServerCategoriesComponent = async () => {
   const queryClient = getQueryClient();
@@ -15,7 +14,7 @@ const ServerCategoriesComponent = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<NavigationSkeleton />}>
+      <Suspense fallback={<div>Loading...</div>}>
         <CategoriesClient />
       </Suspense>
     </HydrationBoundary>

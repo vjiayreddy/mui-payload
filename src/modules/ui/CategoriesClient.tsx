@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import Navigation from "@/src/components/shared/navigation/Navigation";
-import { useTRPC } from "@/src/trpc/client";
+import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const CategoriesClient = () => {
@@ -10,7 +8,7 @@ const CategoriesClient = () => {
     trpc.categories.getLevelOneCategories.queryOptions()
   );
   return (
-    <Navigation data={data}/>
+    <div>Categories: {JSON.stringify(data)}</div>
   );
 };
 export default CategoriesClient;

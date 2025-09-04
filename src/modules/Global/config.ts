@@ -1,7 +1,6 @@
 import { GlobalConfig } from 'payload'
 import { revalidateHeader } from './revalidate'
 import { ColorInput } from '@/fields/ColorPicker/color'
-import { link } from '@/fields/Link'
 
 export const Header: GlobalConfig = {
   slug: 'header',

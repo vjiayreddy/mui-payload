@@ -1,5 +1,5 @@
 'use client'
-import { Button, Container, Grid } from '@mui/material'
+import { Button, Container } from '@mui/material'
 import { AdTitle1, AdWrapper } from './styled'
 import { AnimatedAdsBannerAreaBlock } from '@/payload-types'
 

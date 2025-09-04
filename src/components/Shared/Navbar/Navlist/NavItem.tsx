@@ -22,7 +22,7 @@ import ChevronRight from '../../Icons/ChevronRight'
 
 const NavItemChild = ({ nav, children }: any) => {
   const pathname = usePathname()
-  const { checkOverflow, elementRef, isRightOverflowing } = useOverflowDetect<HTMLDivElement>()
+  const { checkOverflow, elementRef, isRightOverflowing: _isRightOverflowing } = useOverflowDetect<HTMLDivElement>()
   const isActive = nav.child.flat().find((item: any) => item.url === pathname)
   return (
     <ParentNav minWidth={200} active={isActive ? true : false} onMouseEnter={checkOverflow}>
@@ -39,7 +39,7 @@ const NavItemChild = ({ nav, children }: any) => {
         <ChevronRight className="arrow" />
       </MenuItem>
 
-      <ParentNavItem ref={elementRef} right={isRightOverflowing} className="parent-nav-item">
+      <ParentNavItem ref={elementRef} right={_isRightOverflowing} className="parent-nav-item">
         <Card
           elevation={5}
           sx={{
