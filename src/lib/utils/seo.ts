@@ -1,4 +1,4 @@
-import { Page } from "@/src/payload-types";
+import { Page } from "@/payload-types";
 import { GenerateTitle, GenerateURL } from "@payloadcms/plugin-seo/types";
 import { getServerSideURL } from "./getURL";
 

@@ -72,13 +72,48 @@ export const Categories: CollectionConfig = {
       ],
     },
     {
-      name: 'availableFilters',
-      type: 'relationship',
-      relationTo: 'filters',
-      hasMany: true,
-      admin: {
-        description: 'Select which filters should be available for this category',
-      },
+      type: 'group',
+      //name: 'Filters',
+      fields: [
+        {
+          name: 'categoryFilters',
+          label: 'Filters',
+          type: 'array',
+          fields: [
+            {
+              name: 'filterName',
+              type: 'relationship',
+              relationTo: 'filter-categories',
+              required: true,
+              unique: true,
+              index: true,
+            },
+            {
+              name: 'filterAttributes',
+              type: 'relationship',
+              relationTo: 'filter-attributes',
+              required: true,
+              hasMany: true,
+              index: true,
+              unique: true,
+              admin: {
+                condition: (_, siblingData) => !!siblingData?.filterName,
+                description:
+                  'Warning: Clear existing selections before changing filter category to avoid validation errors',
+              },
+              filterOptions: ({ siblingData }) => {
+                const typedSiblingData = siblingData as { filterName?: string }
+                if (typedSiblingData?.filterName) {
+                  return {
+                    filterCategory: { equals: typedSiblingData.filterName },
+                  }
+                }
+                return false
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 }

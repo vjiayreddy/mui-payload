@@ -2,6 +2,7 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Image from "next/image";
 import type {
   BestSellingItemsBlock as BestSellingItemsBlockProps,
   Product,
@@ -142,9 +143,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="group mb-10">
       <div className="relative mb-5 overflow-hidden h-[300px]">
-        <img
+        <Image
           src={image}
           alt={name}
+          width={300}
+          height={300}
           className="w-full h-full object-cover object-center"
         />
         {discountedPrice && (

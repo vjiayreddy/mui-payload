@@ -25,12 +25,12 @@ const Categories = () => {
     setCatId((prev) => (prev === id ? null : id))
   }
 
-  const handleClose = (event: Event | React.SyntheticEvent) => {
+  const handleClose = (_event: Event | React.SyntheticEvent) => {
     setCatId(null)
   }
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Tab' || event.key === 'Escape') {
+  function _handleListKeyDown(_event: React.KeyboardEvent) {
+    if (_event.key === 'Tab' || _event.key === 'Escape') {
       setCatId(null)
     }
   }

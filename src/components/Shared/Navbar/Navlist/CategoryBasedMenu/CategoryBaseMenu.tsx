@@ -30,7 +30,7 @@ interface CategoryBasedMenuProps {
 const CategoryBasedMenu = ({ title, menuList }: CategoryBasedMenuProps) => {
   const [selected, setSelected] = useState(menuList[0].name)
   const list = menuList.reduce((prev: any, curr: any) => [...prev, curr.name], [])
-  const childList = menuList.find((item: any) => item.name === selected)
+  const _childList = menuList.find((item: any) => item.name === selected)
   return (
     <Wrapper>
       <div className="menu-title">
@@ -54,7 +54,7 @@ const CategoryBasedMenu = ({ title, menuList }: CategoryBasedMenuProps) => {
           </CategoryList>
 
           {/* SUB / CHILD CATEGORIES SECTION */}
-          <SubChildList subChildren={childList} />
+          <SubChildList subChildren={_childList} />
         </StyledCard>
       </MenusContainer>
     </Wrapper>
@@ -94,7 +94,7 @@ const SubChildList = ({ subChildren }: any) => {
 }
 
 const SubChildItem = ({ item }: any) => {
-  const { subcategory, url = '/', icon, img } = item
+  const { subcategory, url = '/', _icon, img } = item
   return (
     <Link href={url}>
       <SubCategoryListItem>

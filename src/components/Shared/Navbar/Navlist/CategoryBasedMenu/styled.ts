@@ -82,7 +82,8 @@ const SubCategoryListItem = styled(ListItem)(({ theme }) => ({
     color: theme.palette.primary.main,
   },
   '& .sub-item-avatar': {
-    borderRadius: '4px',
+    width: 20,
+    height: 20,
     backgroundColor: theme.palette.grey[100],
   },
 }))

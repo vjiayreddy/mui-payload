@@ -8,10 +8,10 @@ import Add from '@mui/icons-material/Add'
 //import useCart from "hooks/useCart";
 
 export default function AddToCart({ product }: { product: any }) {
-  const { id, slug, title, price, thumbnail } = product
+  const { _id, _slug, _title, _price, _thumbnail } = product
   //const { dispatch } = useCart()
-  const router = useRouter()
-  const [isLoading, setLoading] = useState(false)
+  const _router = useRouter()
+  const [_isLoading, _setLoading] = useState(false)
   //   const handleAddToCart = () => {
   //     setLoading(true)
   //     setTimeout(() => {
@@ -36,7 +36,7 @@ export default function AddToCart({ product }: { product: any }) {
     <Button
       color="primary"
       variant="outlined"
-      loading={isLoading}
+      loading={_isLoading}
       //  onClick={handleAddToCart}
       sx={{
         padding: '3px',

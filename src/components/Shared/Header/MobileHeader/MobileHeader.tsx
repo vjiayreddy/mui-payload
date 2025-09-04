@@ -8,17 +8,17 @@ import { FlexBetween, FlexBox } from '../../FlexBox'
 export default function MobileHeader({ children }: { children: React.ReactNode }) {
   return <FlexBetween width="100%">{children}</FlexBetween>
 }
-MobileHeader.Left = ({ children }: { children: React.ReactNode }) => {
+MobileHeader.Left = function MobileHeaderLeft({ children }: { children: React.ReactNode }) {
   return <Box mr={2}>{children}</Box>
 }
-MobileHeader.Logo = ({ logoUrl }: { logoUrl: string }) => {
+MobileHeader.Logo = function MobileHeaderLogo({ logoUrl }: { logoUrl: string }) {
   return (
     <Link href="/">
       <Image width={130} height={44} src={logoUrl} alt="logo" />
     </Link>
   )
 }
-MobileHeader.Right = ({ children }: { children: React.ReactNode }) => {
+MobileHeader.Right = function MobileHeaderRight({ children }: { children: React.ReactNode }) {
   return (
     <FlexBox justifyContent="end" flex={1}>
       {children}

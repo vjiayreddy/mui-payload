@@ -15,7 +15,7 @@ import { Box, Grid } from '@mui/material'
 
 const FlashDealCard = ({
   product,
-  showProductSize,
+  showProductSize: _showProductSize,
   showRating = true,
 }: {
   product: Product

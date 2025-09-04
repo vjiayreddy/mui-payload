@@ -32,7 +32,7 @@ export const FilterOptionSelectorComponent: React.FC<FilterOptionSelectorCompone
     if (filterTypeValue && value && value.length > 0) {
       setValue([])
     }
-  }, [filterTypeValue, setValue])
+  }, [filterTypeValue, setValue, value])
 
   // Memoize query options to prevent unnecessary refetches
   const queryOptions = React.useMemo(

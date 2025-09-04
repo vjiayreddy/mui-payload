@@ -14,7 +14,6 @@ import Clear from '@mui/icons-material/Clear'
 // RENDER MENU LEVEL FUNCTION
 
 // NAVIGATION DATA LIST
-import { updateNavigation } from './ModifiedNavigation'
 import OverlayScrollbar from '../../OverlayScrollbar/scrollbar'
 import { renderLevels } from './RenderLevels'
 

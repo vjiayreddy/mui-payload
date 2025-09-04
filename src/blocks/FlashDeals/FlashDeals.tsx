@@ -1,6 +1,6 @@
 'use client'
 import SectionCreator from '@/components/Shared/Sections/SectionCreator'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Icon } from '@iconify/react'
 import { SlikSlider } from '@/components/Shared/Sliders/SlikSlider'
 import { Box } from '@mui/material'
